@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="shortcut icon" href="C:\Users\zak.cochrane\Pictures\terasaki.jpg" />
+<title>Terasaki Electric Europe CO. LTD.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">		
+<link rel="preload" href="https://scripts.convertcalculator.com/embed.js" as="script" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+	align-items: center;
+      flex-direction: column;
+      height: 100vh;
+
+.container {
+	text-align: center;
+  flex: 1;
+  max-width: 800px;
+  padding: 20px;
+  border: 1px solid #0083d0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.background-logo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Adjust the opacity as needed */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: -1; /* Place the logo behind the modal content */
+}
+
+.background-logo img {
+  max-width: 150%; /* Adjust the logo size as needed */
+  max-height: 150%;
+  opacity: 0.5; /* Adjust the logo opacity as needed */
+}
+    .calculator-iframe {
+      width: 1000px;
+      height: 600px;
+      border: 1px solid #0083d0;
+      margin: 0 auto;
+      display: block;
+    }
+    /* Modal Styles */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      overflow: auto;
+    }
+    .modal-content {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      max-width: 80%;
+      max-height: 80vh;
+      overflow-y: auto;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+<p> Terasaki's Product Part Picker is a price estimation tool for Terasaki's parts. This allows for easy configuration in five minutes by the user. The configurator does not generate official quotes so please send all quotes to Terasaki sales team. </p>				
+						<div style="display: flex;justify-content: space-around;"> 
+  <div class="container">
+
+    <h1>Terasaki Product Part Picker</h1>
+    <p>A cost estimation tool for Terasaki Products</p>
+    <button id="openModalButton">Open Calculator</button>
+  </div>
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-content">
+      <h2>TemPower2 Product Part Picker</h2>
+      <iframe class="calculator-iframe" id="calculatorIframe" srcdoc='
+        <!-- Calculator Embed Code -->
+<div class="calculator" data-calc-id="QCW3aPfZfMbGdRNXv" data-type="framed"></div>
+<script src="https://scripts.convertcalculator.com/embed.js" async="true"></script>
+      '></iframe>
+      <button id="closeModalButton">Close Calculator</button>
+    </div>
+  </div>
+</div>	
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var openModalButton = document.getElementById('openModalButton');
+    var closeModalButton = document.getElementById('closeModalButton');
+    var modalOverlay = document.getElementById('modalOverlay');
+    var calculatorIframe = document.getElementById('calculatorIframe');
+
+    function updateCloseButton() {
+      closeModalButton.textContent = 'Close Calculator';
+    }
+
+    closeModalButton.addEventListener('click', function() {
+      if (calculatorIframe.srcdoc) {
+        // Reload the iframe to reset the calculator's state
+        calculatorIframe.srcdoc = calculatorIframe.srcdoc; // Refresh iframe content
+      }
+      closeModalButton.textContent = 'Loading...';
+      modalOverlay.style.display = 'none';
+    });
+
+    openModalButton.addEventListener('click', function() {
+      // Update the close button text and display the modal
+      updateCloseButton();
+      modalOverlay.style.display = 'flex';
+    });
+
+    // Listen for iframe load event
+    calculatorIframe.addEventListener('load', function() {
+      // Add event listener to links within the iframe
+      var iframeDoc = calculatorIframe.contentDocument;
+      if (iframeDoc) {
+        var links = iframeDoc.querySelectorAll('a');
+        links.forEach(function(link) {
+          link.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent the link from navigating away
+            modalOverlay.style.display = 'none'; // Hide the modal overlay
+          });
+        });
+      }
+    });
+  });
+</script>
+</body>
+</html>
